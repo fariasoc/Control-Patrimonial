@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "280969673256",
+    "project_id": "controlx-76487",
+    "storage_bucket": "controlx-76487.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:280969673256:android:cfe2efd19dfed182d5d31d",
+        "android_client_info": {
+          "package_name": "com.controlx"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "280969673256-nu2g2hd9fu59u4fs825ff853c8hk323l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDE5xsZNqqfRiEVrE6m2ezM1lK8UCnclug"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "280969673256-nu2g2hd9fu59u4fs825ff853c8hk323l.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "280969673256-lm5sptg1k6kka6ortp94nbukr2dj66l6.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.controlx"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
