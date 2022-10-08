@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Alert } from 'react-native';
+import React, { useState } from 'react';
+import { Alert, Switch, StyleSheet } from 'react-native';
 import { VStack } from 'native-base';
 import { useNavigation } from '@react-navigation/native';
 import firestore from '@react-native-firebase/firestore';
@@ -9,9 +9,13 @@ import { Input } from '../components/Input';
 import { Button } from '../components/Button';
 
 export function Register() {
+  const [isEnabled, setIsEnabled] = useState(false);
+  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
   const [isLoading, setIsLoading] = useState(false);
   const [patrimony, setPatrimony] = useState('');
   const [description, setDescription] = useState('');
+
+
 
   const navigation = useNavigation();
 
@@ -46,18 +50,27 @@ export function Register() {
       <Header title="Solicitação" />
 
       <Input
-        placeholder="Número do patrimônio"
+        placeholder="Nome do patrimônio"
         mt={4}
         onChangeText={setPatrimony}
       />
 
       <Input
-        placeholder="Descrição do problema"
+        placeholder="Número do lacre"
         flex={1}
-        mt={5}
+        mt={4}
         multiline
         textAlignVertical="top"
         onChangeText={setDescription}
+      />
+
+      <Switch
+        trackColor={{ false: "#767577", true: "#81b0ff" }}
+        thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
+        ios_backgroundColor="#3e3e3e"
+        onValueChange={toggleSwitch}
+        value={isEnabled}
+
       />
 
       <Button
@@ -69,3 +82,9 @@ export function Register() {
     </VStack>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+
+  }
+})
