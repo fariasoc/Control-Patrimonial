@@ -9,7 +9,7 @@ import { ChatTeardropText } from 'phosphor-react-native';
 
 import { dateFormat } from '../utils/firestoreDateFormat';
 
-import Logo from '../assets/logo_secondary.svg';
+import Logo from '../assets/logo_secondary .svg';
 
 import { Filter } from '../components/Filter';
 import { Button } from '../components/Button';
@@ -124,8 +124,8 @@ export function Home() {
                 <Center>
                   <ChatTeardropText color={colors.gray[300]} size={40} />
                   <Text color="gray.300" fontSize="xl" mt={6} textAlign="center">
-                    Você ainda não possui {'\n'}
-                    solicitações {statusSelected === 'open' ? 'em andamento' : 'finalizadas'}
+                    Nada {'\n'}
+                    {statusSelected === 'open' ? 'por enquanto' : 'por enquanto'}
                   </Text>
                 </Center>
               )}
