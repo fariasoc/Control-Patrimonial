@@ -118,14 +118,14 @@ export function Details() {
         />
 
         <CardDetails
-          title="número do lacre"
+          title="número do lacre antigo"
           description={order.description}
           icon={Keyhole}
           footer={`Registrado em ${order.when}`}
         />
 
         <CardDetails
-          title="observações"
+          title="número do lacre novo"
           icon={CircleWavyCheck}
           description={order.solution}
           footer={order.closed && `Encerrado em ${order.closed}`}
