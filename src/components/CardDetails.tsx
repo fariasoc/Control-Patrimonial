@@ -23,7 +23,7 @@ export function CardDetails({
     <VStack bg="gray.600" p={5} mt={5} rounded="sm">
       <HStack alignItems="center" mb={4}>
         <Icon color={colors.primary[700]} />
-        <Text ml={2} color="gray.300" fontSize="sm" textTransform="uppercase">
+        <Text ml={2} color="gray.200" fontSize="sm" textTransform="uppercase" bold>
           {title}
         </Text>
       </HStack>

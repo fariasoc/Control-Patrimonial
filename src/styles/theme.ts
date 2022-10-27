@@ -22,11 +22,20 @@ export const THEME = extendTheme({
       200: '#C4C4CC',
       100: '#E1E1E6'
     },
+    blue: {
+      700: '#4169E1'
+    },
+    pink: {
+      700: '#E0115F'
+    }
+    ,
     white: '#FFFFFF'
   },
   fonts: {
-    heading: 'Roboto_700Bold',
-    body: 'Roboto_400Regular',
+    //heading: 'Roboto_700Bold',
+    //body: 'Roboto_400Regular',
+    heading: 'Inter_900Black',
+    body: 'Inter_600Regular',
   },
   fontSizes: {
     xs: 12,

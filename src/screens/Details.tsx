@@ -4,7 +4,7 @@ import { VStack, Text, HStack, useTheme, ScrollView, Box } from 'native-base';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import firestore from '@react-native-firebase/firestore';
 import { OrderFirestoreDTO } from '../DTOs/OrderFirestoreDTO';
-import { CircleWavyCheck, Hourglass, Factory, ClipboardText, Keyhole } from 'phosphor-react-native';
+import { LockKey, Hourglass, Factory, ClipboardText, LockKeyOpen } from 'phosphor-react-native';
 
 import { dateFormat } from '../utils/firestoreDateFormat';
 
@@ -96,7 +96,7 @@ export function Details() {
       <HStack bg="gray.500" justifyContent="center" p={4}>
         {
           order.status === 'closed'
-            ? <CircleWavyCheck size={22} color={colors.green[300]} />
+            ? <LockKey size={22} color={colors.green[300]} />
             : <Hourglass size={22} color={colors.secondary[700]} />
         }
 
@@ -120,20 +120,20 @@ export function Details() {
         <CardDetails
           title="número do lacre antigo"
           description={order.description}
-          icon={Keyhole}
-          footer={`Registrado em ${order.when}`}
+          icon={LockKeyOpen}
+          footer={`Aberto em ${order.when}`}
         />
 
         <CardDetails
           title="número do lacre novo"
-          icon={CircleWavyCheck}
+          icon={LockKey}
           description={order.solution}
-          footer={order.closed && `Encerrado em ${order.closed}`}
+          footer={order.closed && `Fechado em ${order.closed}`}
         >
           {
             order.status === 'open' &&
             <Input
-              placeholder="Observações"
+           
               onChangeText={setSolution}
               textAlignVertical="top"
               multiline

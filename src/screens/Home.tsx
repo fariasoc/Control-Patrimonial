@@ -9,7 +9,7 @@ import { ChatTeardropText } from 'phosphor-react-native';
 
 import { dateFormat } from '../utils/firestoreDateFormat';
 
-import Logo from '../assets/logo_secondary .svg';
+//import Logo from '../assets/3.svg';
 
 import { Filter } from '../components/Filter';
 import { Button } from '../components/Button';
@@ -74,30 +74,32 @@ export function Home() {
         justifyContent="space-between"
         alignItems="center"
         bg="gray.600"
-        pt={12}
-        pb={5}
+        pt={8}
+        pb={4}
         px={6}
       >
-        <Logo />
+
+        <Heading color="white">Controle Patrimonial </Heading>
+
 
         <IconButton
-          icon={<SignOut size={26} color={colors.gray[300]} />}
+          icon={<SignOut size={20} color={colors.white} />}
           onPress={handleLogout}
         />
       </HStack>
 
       <VStack flex={1} px={6}>
-        <HStack w="full" mt={8} mb={4} justifyContent="space-between" alignItems="center">
-          <Heading color="gray.100">
+        <HStack w="full" mt={4} mb={4} justifyContent="space-between" alignItems="center">
+          <Heading size="md" color="gray.100" >
             Equipamentos
           </Heading>
 
-          <Text color="gray.200">
+          <Text bold color="white" >
             {orders.length}
           </Text>
         </HStack>
 
-        <HStack space={3} mb={8}>
+        <HStack space={3} mb={6}>
           <Filter
             type="open"
             title="em andamento"
@@ -132,7 +134,7 @@ export function Home() {
             />
         }
 
-        <Button title="Nova solicitação" onPress={handleNewOrder} />
+        <Button title="Abrir equipamento" onPress={handleNewOrder} />
       </VStack>
     </VStack>
   );

@@ -1,5 +1,5 @@
 import { Box, Circle, HStack, Text, useTheme, VStack, Pressable, IPressableProps } from 'native-base';
-import { ClockAfternoon, Hourglass, CircleWavyCheck } from 'phosphor-react-native';
+import { ClockAfternoon, HandPalm, LockKey } from 'phosphor-react-native';
 
 export type OrderProps = {
   id: string;
@@ -44,8 +44,8 @@ export function Order({ data, ...rest }: Props) {
         <Circle bg="gray.500" h={12} w={12} mr={5}>
           {
             data.status === 'closed'
-              ? <CircleWavyCheck size={24} color={statusColor} />
-              : <Hourglass size={24} color={statusColor} />
+              ? <LockKey size={24} color={statusColor} />
+              : <HandPalm size={24} color={statusColor} />
           }
         </Circle>
       </HStack>
