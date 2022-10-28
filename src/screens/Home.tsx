@@ -81,7 +81,6 @@ export function Home() {
 
         <Heading color="white">Controle Patrimonial </Heading>
 
-
         <IconButton
           icon={<SignOut size={20} color={colors.white} />}
           onPress={handleLogout}
