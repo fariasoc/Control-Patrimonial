@@ -23,7 +23,7 @@ export function Register() {
 
   function handleNewOrderRegister() {
     if (!patrimony || !description) {
-      return Alert.alert('Registrar', 'Preencha todos os campos.');
+      return Alert.alert('Por favor', 'Preencha todos os campos ;)');
     }
 
     setIsLoading(true);
@@ -58,15 +58,13 @@ export function Register() {
       />
 
       <Input
-        placeholder="Número do lacre"
-        flex={1}
-        mt={4}
-        multiline
-        textAlignVertical="top"
+        placeholder="Número do lacre"        
+        mt={4}    
         onChangeText={setDescription}
       />
 
       <Fab  
+        mr={6}
         bg="green.700" isLoading={isLoading}
         onPress={handleNewOrderRegister}
         icon={<Check  size={30} color="white" weight="bold" />} 

@@ -4,7 +4,7 @@ import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import { useNavigation } from '@react-navigation/native';
 import { HStack, IconButton, VStack, useTheme, Text, Heading, FlatList, Center, Fab } from 'native-base';
-import { SignOut, Buildings, ChatTeardropText} from 'phosphor-react-native';
+import { SignOut, Plus , ChatTeardropText} from 'phosphor-react-native';
 
 
 import { dateFormat } from '../utils/firestoreDateFormat';
@@ -134,13 +134,11 @@ export function Home() {
         }
 
         <Fab  
-            onPress={handleNewOrder}
-            variant="outline"
+            onPress={handleNewOrder}       
             borderWidth={'1'}
-            borderColor="white"
             bg={colors.pink[700]}
-            mr={1}
-            icon={<Buildings size={20} color={colors.white}  />}
+            mr={7}
+            icon={<Plus  size={14} color={colors.white} weight="bold"  />}
     />
 
      {/*  <Button title="+" onPress={handleNewOrder} />  */}
