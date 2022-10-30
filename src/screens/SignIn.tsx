@@ -47,33 +47,38 @@ export function SignIn() {
 
   return (
     <VStack flex={1} alignItems="center" bg="gray.600" px={8} pt={24}>
-      <Logo height={100} width={300} />
+      <Logo height={100} width={100} />
 
-      <Heading color="gray.100" fontSize="xl" mt={20} mb={6}>
+      <Heading color="gray.100" fontSize="xl" mt={10} mb={6}>
         Acesse sua conta
       </Heading>
 
       <Input
         mb={4}
         placeholder="E-mail"
-        InputLeftElement={<Icon as={<At color={colors.white} />} ml={4} />}
+        InputLeftElement={<Icon as={<At color={colors.white} weight="bold" />} ml={5} />}
         onChangeText={setEmail}
       />
 
       <Input
-        mb={4}
+        mb={5}
         placeholder="Senha"
-        InputLeftElement={<Icon as={<Key color={colors.white} />} ml={4} />}
+        InputLeftElement={<Icon as={<Key color={colors.white} weight="bold" />} ml={4} />}
         secureTextEntry
         onChangeText={setPassword}
       />
 
       <Button
+        color="black" 
         title="Entrar"
         w="full"
         onPress={handleSignIn}
         isLoading={isLoading}
         borderRadius={10}
+        bg="black"
+        borderWidth={'1'}
+        borderColor={colors.pink[700]}
+        
       />
     </VStack>
   )

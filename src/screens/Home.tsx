@@ -3,8 +3,8 @@ import { Alert } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import { useNavigation } from '@react-navigation/native';
-import { HStack, IconButton, VStack, useTheme, Text, Heading, FlatList, Center, Fab } from 'native-base';
-import { SignOut, Plus , ChatTeardropText} from 'phosphor-react-native';
+import { HStack, IconButton, VStack, useTheme, Text, Heading, FlatList, Center, Fab, Avatar  } from 'native-base';
+import { SignOut, Plus, ChatTeardropText, Circle} from 'phosphor-react-native';
 
 
 import { dateFormat } from '../utils/firestoreDateFormat';
@@ -91,11 +91,15 @@ export function Home() {
         <HStack w="full" mt={4} mb={4} justifyContent="space-between" alignItems="center">
           <Heading size="md" color="gray.100" >
             Equipamentos
-          </Heading>
+          </Heading>      
 
-          <Text bold color="white" >
-            {orders.length}
-          </Text>
+          <Avatar h={8} w={8} mr={2} borderWidth={'1'} bg="gray.400">
+
+            <Text bold  color="white" fontSize="md"  >
+              {orders.length}
+            </Text>
+
+          </Avatar>
         </HStack>
 
         <HStack space={3} mb={6}>

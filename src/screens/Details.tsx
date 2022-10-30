@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import { Alert } from 'react-native';
-import { VStack, Text, HStack, useTheme, ScrollView, Box } from 'native-base';
+import { VStack, Text, HStack, useTheme, ScrollView, Box,  Fab } from 'native-base';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import firestore from '@react-native-firebase/firestore';
 import { OrderFirestoreDTO } from '../DTOs/OrderFirestoreDTO';
 import { LockKey, Hourglass, Factory, ClipboardText, LockKeyOpen } from 'phosphor-react-native';
 
 import { dateFormat } from '../utils/firestoreDateFormat';
+import { Check  } from 'phosphor-react-native';
 
 import { Input } from '../components/Input';
 import { Button } from '../components/Button';
@@ -38,7 +39,7 @@ export function Details() {
 
   function handleOrderClose() {
     if (!solution) {
-      return Alert.alert('Solicitação', 'Informa a solução para encerrar a solicitação');
+      return Alert.alert('Por favor', 'Informe o número do lacre atual');
     }
 
     firestore()
@@ -145,12 +146,26 @@ export function Details() {
 
       {
         order.status === 'open' &&
-        <Button
+
+        <Fab  
+        mr={6}
+        bg="green.700" isLoading={isLoading}
+        onPress={handleOrderClose}
+        icon={<Check  size={25} color="white" weight="bold" />} 
+      />
+
+      
+
+      }
+
+{ /*
+          <Button
           title="Confirmar"
           m={5}
           onPress={handleOrderClose}
         />
-      }
+      */}
+
     </VStack>
   );
 }
