@@ -1,4 +1,5 @@
-import { Button as ButtonNativeBase, IButtonProps, Heading } from 'native-base';
+import { Button as ButtonNativeBase, IButtonProps, Heading, Fab, HStack, Box} from 'native-base';
+
 
 type Props = IButtonProps & {
   title: string;
@@ -6,17 +7,23 @@ type Props = IButtonProps & {
 
 export function Button({ title, ...rest }: Props) {
   return (
+
     <ButtonNativeBase
+
+      borderRadius="full"
       bg="pink.700"
-      h={14}
       fontSize="sm"
-      rounded="sm"
-      _pressed={{ bg: "green.500" }}
+      h={12} w={70}
+      mt={0} mb={0}
+      _pressed={{ bg: "gray.700" }}
       {...rest}
     >
-      <Heading color="white" fontSize="sm">
+   
+      <Heading color="white" fontSize="xl">
         {title}
       </Heading>
+
     </ButtonNativeBase>
+
   );
 }

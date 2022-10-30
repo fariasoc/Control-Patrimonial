@@ -27,21 +27,21 @@ export function Order({ data, ...rest }: Props) {
         rounded="sm"
         overflow="hidden"
       >
-        <Box h="full" w={2} bg={statusColor} />
+        <Box h="full" w={1} bg={statusColor} />
 
         <VStack flex={1} my={5} ml={5}>
-          <Text color="white" fontSize="md">
+          <Text color="white" fontSize="md" bold>
             {data.patrimony}
           </Text>
           <HStack alignItems="center">
-            <ClockAfternoon size={15} color={colors.gray[300]} />
+            <ClockAfternoon size={20} color={colors.gray[300]} />
             <Text color="gray.200" fontSize="xs" ml={1}>
               {data.when}
             </Text>
           </HStack>
         </VStack>
 
-        <Circle bg="gray.500" h={12} w={12} mr={5}>
+        <Circle bg="gray.400" h={12} w={12} mr={5}>
           {
             data.status === 'closed'
               ? <LockKey size={24} color={statusColor} />

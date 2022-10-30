@@ -3,9 +3,9 @@ import { Alert } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import { useNavigation } from '@react-navigation/native';
-import { HStack, IconButton, VStack, useTheme, Text, Heading, FlatList, Center } from 'native-base';
-import { SignOut } from 'phosphor-react-native';
-import { ChatTeardropText } from 'phosphor-react-native';
+import { HStack, IconButton, VStack, useTheme, Text, Heading, FlatList, Center, Fab } from 'native-base';
+import { SignOut, Buildings, ChatTeardropText} from 'phosphor-react-native';
+
 
 import { dateFormat } from '../utils/firestoreDateFormat';
 
@@ -68,14 +68,14 @@ export function Home() {
   }, [statusSelected]);
 
   return (
-    <VStack flex={1} pb={6} bg="gray.700">
+    <VStack flex={1} pb={3} bg="gray.700">
       <HStack
         w="full"
         justifyContent="space-between"
         alignItems="center"
         bg="gray.600"
         pt={8}
-        pb={4}
+        pb={1}
         px={6}
       >
 
@@ -133,8 +133,22 @@ export function Home() {
             />
         }
 
-        <Button title="Abrir equipamento" onPress={handleNewOrder} />
+        <Fab  
+            onPress={handleNewOrder}
+            variant="outline"
+            borderWidth={'1'}
+            borderColor="white"
+            bg={colors.pink[700]}
+            mr={1}
+            icon={<Buildings size={20} color={colors.white}  />}
+    />
+
+     {/*  <Button title="+" onPress={handleNewOrder} />  */}
+
+        
       </VStack>
+
+      
     </VStack>
   );
 }

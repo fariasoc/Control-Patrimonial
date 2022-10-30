@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-import { Alert, Switch, StyleSheet } from 'react-native';
-import { VStack } from 'native-base';
+import { Alert } from 'react-native';
+import { Fab, VStack } from 'native-base';
+import { Check  } from 'phosphor-react-native';
 import { useNavigation } from '@react-navigation/native';
 import firestore from '@react-native-firebase/firestore';
 
 import { Header } from '../components/Header';
 import { Input } from '../components/Input';
 import { Button } from '../components/Button';
+
 
 export function Register() {
   const [isEnabled, setIsEnabled] = useState(false);
@@ -64,27 +66,23 @@ export function Register() {
         onChangeText={setDescription}
       />
 
-      <Switch
-        trackColor={{ false: "#767577", true: "#81b0ff" }}
-        thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
-        ios_backgroundColor="#3e3e3e"
-        onValueChange={toggleSwitch}
-        value={isEnabled}
-
+      <Fab  
+        bg="green.700" isLoading={isLoading}
+        onPress={handleNewOrderRegister}
+        icon={<Check  size={30} color="white" weight="bold" />} 
       />
 
+{/* 
       <Button
-        title="Cadastrar"
+        title="OK"
         mt={5}
+        bg="green.700"
         isLoading={isLoading}
         onPress={handleNewOrderRegister}
+        icon={<CirclesThreePlus size={20} color="white" />}
       />
+*/}      
+
     </VStack>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-
-  }
-})

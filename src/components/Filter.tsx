@@ -16,12 +16,12 @@ export function Filter({ title, isActive = false, type, ...rest }: Props) {
       variant="outline"
       borderWidth={isActive ? 1 : 0}
       borderColor={colorType}
-      bgColor="gray.600"
+      bgColor="gray.500"
       flex={1}
       size="sm"
       {...rest}
     >
-      <Text color={isActive ? colorType : "gray.300"} fontSize="xs" textTransform="uppercase">
+      <Text color={isActive ? colorType : "gray.100"} fontSize="xs" textTransform="uppercase">
         {title}
       </Text>
     </Button>

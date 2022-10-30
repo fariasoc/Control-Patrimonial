@@ -61,7 +61,7 @@ export function SignIn() {
       />
 
       <Input
-        mb={6}
+        mb={4}
         placeholder="Senha"
         InputLeftElement={<Icon as={<Key color={colors.white} />} ml={4} />}
         secureTextEntry
@@ -73,6 +73,7 @@ export function SignIn() {
         w="full"
         onPress={handleSignIn}
         isLoading={isLoading}
+        borderRadius={10}
       />
     </VStack>
   )
