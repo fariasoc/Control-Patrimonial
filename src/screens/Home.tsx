@@ -142,6 +142,7 @@ export function Home() {
             borderWidth={'1'}
             bg={colors.pink[700]}
             mr={7}
+            _pressed={{ bg: "gray.700" }}
             icon={<Plus  size={14} color={colors.white} weight="bold"  />}
     />
 
