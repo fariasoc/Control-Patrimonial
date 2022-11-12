@@ -105,7 +105,7 @@ export function Home() {
         <HStack space={3} mb={6}>
           <Filter
             type="open"
-            title="em andamento"
+            title="Aberto"
             onPress={() => setStatusSelected('open')}
             isActive={statusSelected === 'open'}
           />
@@ -115,6 +115,9 @@ export function Home() {
             title="finalizados"
             onPress={() => setStatusSelected('closed')}
             isActive={statusSelected === 'closed'}
+          />
+          <Filter
+            title="Histórico"
           />
         </HStack>
         {
