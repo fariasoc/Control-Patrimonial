@@ -1,9 +1,18 @@
 import { Box, Circle, HStack, Text, useTheme, VStack, Pressable, IPressableProps } from 'native-base';
-import { ClockAfternoon, HandWaving , LockKey } from 'phosphor-react-native';
+import { ClockAfternoon, HandWaving, Key } from 'phosphor-react-native';
+
+import * as Print from 'expo-print'
+import { shareAsync } from 'expo-sharing'
+import { useState } from 'react';
 
 export type OrderProps = {
   id: string;
+  product: string;
   patrimony: string;
+  observation: string;
+  numberSeal: string;
+  operator: string;
+  stockController: string;
   when: string;
   status: 'open' | 'closed';
 }
@@ -31,7 +40,7 @@ export function Order({ data, ...rest }: Props) {
 
         <VStack flex={1} my={5} ml={5}>
           <Text color="white" fontSize="md" bold mb={3}>
-            {data.patrimony}
+            {`${data.product} ${'\n'}${data.patrimony}`}
           </Text>
           <HStack alignItems="center">
             <ClockAfternoon size={20} color={colors.gray[300]} />
@@ -44,7 +53,7 @@ export function Order({ data, ...rest }: Props) {
         <Circle bg="gray.400" h={12} w={12} mr={5}>
           {
             data.status === 'closed'
-              ? <LockKey size={24} color={statusColor} />
+              ? <Key size={24} color={statusColor} />
               : <HandWaving  size={24} color={statusColor} />
           }
         </Circle>

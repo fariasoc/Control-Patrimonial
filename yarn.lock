@@ -4185,6 +4185,11 @@ expo-print@~11.3.0:
   resolved "https://registry.yarnpkg.com/expo-print/-/expo-print-11.3.0.tgz#d59fc766b521f6c4d51273dcaf979c3639919191"
   integrity sha512-7pMpVktom6xEvxoniI10gZ3X1EX7mxdKbOkfaeb7MdvFNC7XfuRn3k/y+oo3+wzLHJL2+wgN4gSOjagS22Wz3A==
 
+expo-sharing@~10.3.0:
+  version "10.3.0"
+  resolved "https://registry.yarnpkg.com/expo-sharing/-/expo-sharing-10.3.0.tgz#4e8e2a50d1c22ea510699664bb6ce827cb06738e"
+  integrity sha512-j3kn43WCOykj7mlGTb5Q3Z56DG8raFdTk0A+rauA7lsmJ5Vakb2qGyTFZ7uwqwrML10EQIPAzNEcEYgpIzHKIw==
+
 expo-splash-screen@~0.16.1:
   version "0.16.1"
   resolved "https://registry.npmjs.org/expo-splash-screen/-/expo-splash-screen-0.16.1.tgz"

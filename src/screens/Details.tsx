@@ -4,7 +4,7 @@ import { VStack, Text, HStack, useTheme, ScrollView, Box,  Fab, Center } from 'n
 import { useNavigation, useRoute } from '@react-navigation/native';
 import firestore from '@react-native-firebase/firestore';
 import { OrderFirestoreDTO } from '../DTOs/OrderFirestoreDTO';
-import { LockKey, Hourglass, LockKeyOpen, User, UserSwitch, Notepad, Tag, Recycle  } from 'phosphor-react-native';
+import { Key, Hourglass, LockKeyOpen, User, UserSwitch, Notepad, Tag, Trash, Stack  } from 'phosphor-react-native';
 
 import { dateFormat } from '../utils/firestoreDateFormat';
 import { Check  } from 'phosphor-react-native';
@@ -21,6 +21,7 @@ type RouteParams = {
 }
 
 type OrderDetails = OrderProps & {
+  product: string;
   patrimony: string;
   observation: string;
   numberSeal: string;
@@ -49,7 +50,7 @@ export function Details() {
     .doc(orderId)
     .delete()
     .then(() => {
-      Alert.alert('Exclusão', 'O documento foi excluído.');
+      Alert.alert('Deletado', 'O documento foi excluído.');
       navigation.goBack();
     })
 
@@ -85,12 +86,13 @@ export function Details() {
       .doc(orderId)
       .get()
       .then((doc) => {
-        const { patrimony, observation, numberSeal, operator, stockController, status, created_at, closed_at, solution } = doc.data();
+        const { product, patrimony, observation, numberSeal, operator, stockController, status, created_at, closed_at, solution } = doc.data();
 
         const closed = closed_at ? dateFormat(closed_at) : null;
 
         setOrder({
           id: doc.id,
+          product,
           patrimony,  
           observation,
           numberSeal,
@@ -119,7 +121,7 @@ export function Details() {
       <HStack bg="gray.500" justifyContent="center" p={4}>
         {
           order.status === 'closed'
-            ? <LockKey size={22} color={colors.green[300]} />
+            ? <Key size={22} color={colors.green[300]} />
             : <Hourglass size={22} color={colors.secondary[700]} />
         }
 
@@ -134,6 +136,11 @@ export function Details() {
       </HStack>
 
       <ScrollView mx={5} showsVerticalScrollIndicator={false} mb={45}>
+        <CardDetails
+            title="Produto"
+            description={`${order.product}`}
+            icon={Stack}
+          />
         <CardDetails
           title="equipamento"
           description={`${order.patrimony}`}
@@ -180,7 +187,7 @@ export function Details() {
 
         <CardDetails
           title="número do lacre novo"
-          icon={LockKey}
+          icon={Key}
           description={order.solution}
           footer={order.closed && `Fechado em ${order.closed}`}
         >
@@ -221,7 +228,7 @@ export function Details() {
           mr={100}
           bg="gray.700" isLoading={isLoading}
           onPress={handleOrderDelete}
-          icon={<Recycle   size={25} color="white" weight="bold" />}
+          icon={<Trash   size={25} color="red" weight="bold" />}
         />    
         
       </HStack>

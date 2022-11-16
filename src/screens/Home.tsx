@@ -4,7 +4,12 @@ import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import { useNavigation } from '@react-navigation/native';
 import { HStack, IconButton, VStack, useTheme, Text, Heading, FlatList, Center, Fab, Avatar  } from 'native-base';
-import { SignOut, Plus, ChatTeardropText, Circle} from 'phosphor-react-native';
+import { SignOut, Plus, ChatTeardropText} from 'phosphor-react-native';
+import { StyleSheet, View, TextInput } from 'react-native';
+
+import * as React from 'react';
+import { printToFileAsync } from 'expo-print';
+import { shareAsync } from 'expo-sharing'; 
 
 
 import { dateFormat } from '../utils/firestoreDateFormat';
@@ -16,10 +21,35 @@ import { Button } from '../components/Button';
 import { Loading } from '../components/Loading';
 import { Order, OrderProps } from '../components/Order';
 
+
+
 export function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const [statusSelected, setStatusSelected] = useState<'open' | 'closed'>('open');
   const [orders, setOrders] = useState<OrderProps[]>([]);
+
+  /*
+  let [name, setName] = useState("");
+
+  const html = `
+    <html>
+      <body>
+        <h1>Hi ${name}</h1>
+        <p style="color: red;">Hello. Bonjour. Hola.</p>
+      </body>
+    </html>
+  `;
+
+  let generatePdf = async () => {
+    const file = await printToFileAsync({
+      html: html,
+      base64: false
+    });
+
+    await shareAsync(file.uri);
+  };
+
+  */
 
   const navigation = useNavigation();
   const { colors } = useTheme();
@@ -49,10 +79,11 @@ export function Home() {
       .where('status', '==', statusSelected)
       .onSnapshot(snapshot => {
         const data = snapshot.docs.map(doc => {
-          const {   patrimony, observation, numberSeal, operator, stockController, status, created_at } = doc.data();
+          const { product, patrimony, observation, numberSeal, operator, stockController, status, created_at } = doc.data();
 
           return {
             id: doc.id,
+            product,
             patrimony,
             observation,
             numberSeal,
@@ -123,6 +154,7 @@ export function Home() {
             title="Histórico"
           />
         </HStack>
+
         {
           isLoading ? <Loading /> :
             <FlatList
@@ -157,7 +189,23 @@ export function Home() {
         
       </VStack>
 
+
       
     </VStack>
+
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  textInput: {
+    alignSelf: "stretch",
+    padding: 8,
+    margin: 8
+  }
+});

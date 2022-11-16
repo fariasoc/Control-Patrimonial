@@ -14,6 +14,7 @@ export function Register() {
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
   const [isLoading, setIsLoading] = useState(false);
+  const [product, setProduct] = useState('');
   const [patrimony, setPatrimony] = useState('');
   const [observation, setObservation] = useState('');
   const [numberSeal, setnumberSeal] = useState('');
@@ -23,7 +24,11 @@ export function Register() {
   const navigation = useNavigation();
 
   function handleNewOrderRegister() {
-    if (!patrimony || !observation || !numberSeal || !stockController || !operator ) {
+    if (  !product || 
+          !patrimony || 
+          !numberSeal || 
+          !stockController || 
+          !operator ) {
       return Alert.alert('Por favor', 'Preencha todos os campos ;)');
     }
 
@@ -32,6 +37,7 @@ export function Register() {
     firestore()
       .collection('orders')
       .add({
+        product,
         patrimony,
         observation,
         numberSeal,
@@ -54,6 +60,12 @@ export function Register() {
   return (
     <VStack flex={1} p={6} bg="gray.600">
       <Header title="Equipamento" />
+
+      <Input
+        placeholder="Produto"
+        mt={4}
+        onChangeText={setProduct}
+      />
 
       <Input
         placeholder="Nome do patrimônio"
