@@ -12,7 +12,6 @@ import { Button } from '../components/Button';
 
 export function Register() {
   const [isEnabled, setIsEnabled] = useState(false);
-  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
   const [isLoading, setIsLoading] = useState(false);
   const [product, setProduct] = useState('');
   const [patrimony, setPatrimony] = useState('');
