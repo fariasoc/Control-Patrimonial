@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Alert } from 'react-native';
-import { VStack, Text, HStack, useTheme, ScrollView, Box,  Fab } from 'native-base';
+import { VStack, Text, HStack, useTheme, ScrollView, Box,  Fab, Center } from 'native-base';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import firestore from '@react-native-firebase/firestore';
 import { OrderFirestoreDTO } from '../DTOs/OrderFirestoreDTO';
-import { LockKey, Hourglass, LockKeyOpen, User, UserSwitch, Notepad, Tag } from 'phosphor-react-native';
+import { LockKey, Hourglass, LockKeyOpen, User, UserSwitch, Notepad, Tag, Recycle  } from 'phosphor-react-native';
 
 import { dateFormat } from '../utils/firestoreDateFormat';
 import { Check  } from 'phosphor-react-native';
@@ -41,6 +41,19 @@ export function Details() {
   const { colors } = useTheme();
 
   const { orderId } = route.params as RouteParams;
+
+  function handleOrderDelete(){
+
+    firestore()
+    .collection<OrderFirestoreDTO>('orders')
+    .doc(orderId)
+    .delete()
+    .then(() => {
+      Alert.alert('Exclusão', 'O documento foi excluído.');
+      navigation.goBack();
+    })
+
+  }
 
   function handleOrderClose() {
     if (!solution) {
@@ -190,17 +203,29 @@ export function Details() {
 
       </ScrollView>
 
-      {
-        order.status === 'open' &&
+      <HStack>
 
-        <Fab  
-        mr={6}
-        bg="green.700" isLoading={isLoading}
-        onPress={handleOrderClose}
-        icon={<Check  size={25} color="white" weight="bold" />} 
-      />
+        {
+          order.status === 'open' &&
 
-      }
+          <Fab  
+          mr={6}
+          bg="green.700" isLoading={isLoading}
+          onPress={handleOrderClose}
+          icon={<Check  size={25} color="white" weight="bold" />} 
+        />
+
+        }
+
+        <Fab
+          mr={100}
+          bg="gray.700" isLoading={isLoading}
+          onPress={handleOrderDelete}
+          icon={<Recycle   size={25} color="white" weight="bold" />}
+        />    
+        
+      </HStack>
+
 
       { /*
           <Button

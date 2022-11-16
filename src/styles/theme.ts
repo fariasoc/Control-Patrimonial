@@ -25,6 +25,7 @@ export const THEME = extendTheme({
     blue: {
       700: '#4169E1'
     },
+    
     pink: {
       700: '#E0115F'
     }
