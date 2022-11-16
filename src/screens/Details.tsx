@@ -4,7 +4,7 @@ import { VStack, Text, HStack, useTheme, ScrollView, Box,  Fab } from 'native-ba
 import { useNavigation, useRoute } from '@react-navigation/native';
 import firestore from '@react-native-firebase/firestore';
 import { OrderFirestoreDTO } from '../DTOs/OrderFirestoreDTO';
-import { LockKey, Hourglass, Factory, ClipboardText, LockKeyOpen, User, UserSwitch, Notepad } from 'phosphor-react-native';
+import { LockKey, Hourglass, LockKeyOpen, User, UserSwitch, Notepad, Tag } from 'phosphor-react-native';
 
 import { dateFormat } from '../utils/firestoreDateFormat';
 import { Check  } from 'phosphor-react-native';
@@ -32,6 +32,7 @@ type OrderDetails = OrderProps & {
 
 export function Details() {
   const [solution, setSolution] = useState('');
+  const [stockController, setstockController] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [order, setOrder] = useState<OrderDetails>({} as OrderDetails);
 
@@ -51,6 +52,7 @@ export function Details() {
       .doc(orderId)
       .update({
         status: 'closed',
+        stockController,
         solution,
         closed_at: firestore.FieldValue.serverTimestamp()
       })
@@ -114,15 +116,15 @@ export function Details() {
           ml={2}
           textTransform="uppercase"
         >
-          {order.status === 'closed' ? 'finalizado' : 'Aberto'}
+          {order.status === 'closed' ? 'Fechado' : 'Aberto'}
         </Text>
       </HStack>
 
-      <ScrollView mx={5} showsVerticalScrollIndicator={false}>
+      <ScrollView mx={5} showsVerticalScrollIndicator={false} mb={45}>
         <CardDetails
           title="equipamento"
           description={`${order.patrimony}`}
-          icon={Factory}
+          icon={Tag}
         />
 
         <CardDetails
@@ -136,22 +138,32 @@ export function Details() {
           title="operador"
           description={order.operator}
           icon={User}
-          footer={` ${order.when}`}
+
         />
 
         <CardDetails
           title="Controle de Estoque"
+          footer={`Aberto em ${order.when}`}
           description={order.stockController}
           icon={UserSwitch}
-          footer={` ${order.when}`}
-        />
+          
+        
+        >
 
-        <CardDetails
-          title="Observações"
-          description={order.observation}
-          icon={Notepad}
-          footer={`Anotado em ${order.when}`}
-        />
+        {
+            order.status === 'open'
+            &&
+            <Input
+           
+              onChangeText={setstockController}
+              textAlignVertical="top"
+
+              h={10}
+            />
+          }
+
+
+        </CardDetails>
 
         <CardDetails
           title="número do lacre novo"
@@ -165,11 +177,17 @@ export function Details() {
            
               onChangeText={setSolution}
               textAlignVertical="top"
-              multiline
-              h={24}
+              h={10}
             />
           }
         </CardDetails>
+
+        <CardDetails
+          title="Observações"
+          description={order.observation}
+          icon={Notepad}
+        />
+
       </ScrollView>
 
       {
@@ -182,17 +200,16 @@ export function Details() {
         icon={<Check  size={25} color="white" weight="bold" />} 
       />
 
-      
-
       }
 
-{ /*
+      { /*
           <Button
           title="Confirmar"
           m={5}
           onPress={handleOrderClose}
         />
-      */}
+        */
+      }
 
     </VStack>
   );

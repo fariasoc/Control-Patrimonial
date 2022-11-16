@@ -80,7 +80,10 @@ export function Register() {
       />
 
       <Input
-        placeholder="Observações"        
+        placeholder="Observações"   
+        textAlignVertical='top' 
+        multiline    
+        h={100}
         mt={4}    
         onChangeText={setObservation}
       />

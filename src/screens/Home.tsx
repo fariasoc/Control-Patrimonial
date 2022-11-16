@@ -49,12 +49,15 @@ export function Home() {
       .where('status', '==', statusSelected)
       .onSnapshot(snapshot => {
         const data = snapshot.docs.map(doc => {
-          const { patrimony, description, status, created_at } = doc.data();
+          const {   patrimony, observation, numberSeal, operator, stockController, status, created_at } = doc.data();
 
           return {
             id: doc.id,
             patrimony,
-            description,
+            observation,
+            numberSeal,
+            operator, 
+            stockController,
             status,
             when: dateFormat(created_at)
           }
@@ -112,7 +115,7 @@ export function Home() {
 
           <Filter
             type="closed"
-            title="finalizados"
+            title="Fechado"
             onPress={() => setStatusSelected('closed')}
             isActive={statusSelected === 'closed'}
           />

@@ -30,7 +30,7 @@ export function CardDetails({
 
       {
         !!description &&
-        <Text color="gray.100" fontSize="md">
+        <Text color="gray.100" fontSize="md" ml={8} >
           {description}
         </Text>
       }
@@ -39,7 +39,7 @@ export function CardDetails({
 
       {
         !!footer &&
-        <Box borderTopWidth={1} borderTopColor="gray.400" mt={3}>
+        <Box borderTopWidth={1} borderTopColor="gray.500" mt={3}>
           <Text mt={3} color="gray.300" fontSize="sm">
             {footer}
           </Text>
