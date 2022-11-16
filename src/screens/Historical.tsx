@@ -12,10 +12,11 @@ import { dateFormat } from '../utils/firestoreDateFormat';
 
 import { Filter } from '../components/Filter';
 import { Button } from '../components/Button';
+import { Header } from '../components/Header';
 import { Loading } from '../components/Loading';
 import { Order, OrderProps } from '../components/Order';
 
-export function Home() {
+export function Historical() {
   const [isLoading, setIsLoading] = useState(true);
   const [statusSelected, setStatusSelected] = useState<'open' | 'closed'>('open');
   const [orders, setOrders] = useState<OrderProps[]>([]);
@@ -27,7 +28,7 @@ export function Home() {
     navigation.navigate('new');
   }
 
-  function handleOpenHistorical() {
+  function handleOpenHistoric() {
     navigation.navigate('historical');
   }
 
@@ -49,7 +50,6 @@ export function Home() {
 
     const subscriber = firestore()
       .collection('orders')
-      .where('status', '==', statusSelected)
       .onSnapshot(snapshot => {
         const data = snapshot.docs.map(doc => {
           const { product, patrimony, observation, numberSeal, operator, stockController, status, created_at } = doc.data();
@@ -72,32 +72,19 @@ export function Home() {
       });
 
     return subscriber;
-  }, [statusSelected]);
+  }, []);
 
   return (
     <VStack flex={1} pb={3} bg="gray.700">
-      <HStack
-        w="full"
-        justifyContent="space-between"
-        alignItems="center"
-        bg="gray.600"
-        pt={8}
-        pb={1}
-        px={6}
-      >
+      
+          <Header title="Histórico" />
 
-        <Heading color="white">Controle Patrimonial </Heading>
 
-        <IconButton
-          icon={<SignOut size={20} color={colors.white} />}
-          onPress={handleLogout}
-        />
-      </HStack>
 
       <VStack flex={1} px={6}>
         <HStack w="full" mt={4} mb={4} justifyContent="space-between" alignItems="center">
           <Heading size="md" color="gray.100" >
-            Equipamentos
+            Todos os Equipamentos
           </Heading>      
 
           <Avatar h={8} w={8} mr={2} borderWidth={'1'} bg="gray.400">
@@ -109,24 +96,8 @@ export function Home() {
           </Avatar>
         </HStack>
 
-        <HStack space={3} mb={6}>
-          <Filter
-            type="open"
-            title="Aberto"
-            onPress={() => setStatusSelected('open')}
-            isActive={statusSelected === 'open'}
-          />
-
-          <Filter
-            type="closed"
-            title="Fechado"
-            onPress={() => setStatusSelected('closed')}
-            isActive={statusSelected === 'closed'}
-          />
-          <Filter
-            title="Histórico"
-            onPress={handleOpenHistorical}
-          />
+        <HStack space={3} mb={1}>
+          
         </HStack>
 
         {
@@ -167,7 +138,7 @@ export function Home() {
 
       <IconButton
           icon={<Printer size={28} color={colors.white} />}
-          onPress={handleOpenHistorical}
+          
         />
 
       <IconButton

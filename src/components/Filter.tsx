@@ -4,6 +4,7 @@ type Props = IButtonProps & {
   title: string;
   isActive?: boolean;
   type?: 'open' | 'closed';
+  type02?: 'historic'
   list?: any;
 }
 

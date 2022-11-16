@@ -13,7 +13,7 @@ export function Button({ title, ...rest }: Props) {
       borderRadius="full"
       bg="pink.700"
       fontSize="sm"
-      h={12} w={70}
+      h={60} w={70}
       mt={0} mb={0}
       _pressed={{ bg: "gray.700" }}
       {...rest}
