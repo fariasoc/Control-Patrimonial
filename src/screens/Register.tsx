@@ -15,14 +15,15 @@ export function Register() {
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
   const [isLoading, setIsLoading] = useState(false);
   const [patrimony, setPatrimony] = useState('');
-  const [description, setDescription] = useState('');
-
-
+  const [observation, setObservation] = useState('');
+  const [numberSeal, setnumberSeal] = useState('');
+  const [operator, setOperator] = useState('');
+  const [stockController, setStockController] = useState('');
 
   const navigation = useNavigation();
 
   function handleNewOrderRegister() {
-    if (!patrimony || !description) {
+    if (!patrimony || !observation || !numberSeal || !stockController || !operator ) {
       return Alert.alert('Por favor', 'Preencha todos os campos ;)');
     }
 
@@ -32,7 +33,10 @@ export function Register() {
       .collection('orders')
       .add({
         patrimony,
-        description,
+        observation,
+        numberSeal,
+        operator,
+        stockController,
         status: 'open',
         created_at: firestore.FieldValue.serverTimestamp()
       })
@@ -43,7 +47,7 @@ export function Register() {
       .catch((error) => {
         console.log(error);
         setIsLoading(false);
-        return Alert.alert('Solicitação', 'Não foi possível registrar o pedido');
+        return Alert.alert('Solicitação', 'Não foi possível registrar a solicitação');
       });
   }
 
@@ -60,8 +64,28 @@ export function Register() {
       <Input
         placeholder="Número do lacre"        
         mt={4}    
-        onChangeText={setDescription}
+        onChangeText={setnumberSeal}
       />
+
+      <Input
+        placeholder="Operador"
+        mt={4}
+        onChangeText={setOperator}
+      />
+
+      <Input
+        placeholder="Controle de Estoque"
+        mt={4}
+        onChangeText={setStockController}
+      />
+
+      <Input
+        placeholder="Observações"        
+        mt={4}    
+        onChangeText={setObservation}
+      />
+
+
 
       <Fab  
         mr={6}

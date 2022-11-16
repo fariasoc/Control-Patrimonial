@@ -2,7 +2,10 @@ import { FirebaseFirestoreTypes } from "@react-native-firebase/firestore";
 
 export type OrderFirestoreDTO = {
   patrimony: string;
-  description: string;
+  observation: string;
+  numberSeal: string;
+  operator: string;
+  stockController: string;
   status: 'open' | 'closed',
   solution?: string;
   created_at: FirebaseFirestoreTypes.Timestamp;

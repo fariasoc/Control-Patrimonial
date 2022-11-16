@@ -4,7 +4,7 @@ import { VStack, Text, HStack, useTheme, ScrollView, Box,  Fab } from 'native-ba
 import { useNavigation, useRoute } from '@react-navigation/native';
 import firestore from '@react-native-firebase/firestore';
 import { OrderFirestoreDTO } from '../DTOs/OrderFirestoreDTO';
-import { LockKey, Hourglass, Factory, ClipboardText, LockKeyOpen } from 'phosphor-react-native';
+import { LockKey, Hourglass, Factory, ClipboardText, LockKeyOpen, User, UserSwitch, Notepad } from 'phosphor-react-native';
 
 import { dateFormat } from '../utils/firestoreDateFormat';
 import { Check  } from 'phosphor-react-native';
@@ -21,7 +21,11 @@ type RouteParams = {
 }
 
 type OrderDetails = OrderProps & {
-  description: string;
+  patrimony: string;
+  observation: string;
+  numberSeal: string;
+  operator: string;
+  stockController: string;
   solution: string;
   closed: string;
 }
@@ -66,15 +70,18 @@ export function Details() {
       .doc(orderId)
       .get()
       .then((doc) => {
-        const { patrimony, description, status, created_at, closed_at, solution } = doc.data();
+        const { patrimony, observation, numberSeal, operator, stockController, status, created_at, closed_at, solution } = doc.data();
 
         const closed = closed_at ? dateFormat(closed_at) : null;
 
         setOrder({
           id: doc.id,
-          patrimony,
-          description,
+          patrimony,  
+          observation,
+          numberSeal,
           status,
+          operator,
+          stockController,
           solution,
           when: dateFormat(created_at),
           closed
@@ -120,9 +127,30 @@ export function Details() {
 
         <CardDetails
           title="número do lacre antigo"
-          description={order.description}
+          description={order.numberSeal}
           icon={LockKeyOpen}
           footer={`Aberto em ${order.when}`}
+        />
+
+        <CardDetails
+          title="operador"
+          description={order.operator}
+          icon={User}
+          footer={` ${order.when}`}
+        />
+
+        <CardDetails
+          title="Controle de Estoque"
+          description={order.stockController}
+          icon={UserSwitch}
+          footer={` ${order.when}`}
+        />
+
+        <CardDetails
+          title="Observações"
+          description={order.observation}
+          icon={Notepad}
+          footer={`Anotado em ${order.when}`}
         />
 
         <CardDetails
