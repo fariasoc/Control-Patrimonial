@@ -4,6 +4,7 @@ import { Home } from '../screens/Home';
 import { Details } from '../screens/Details';
 import { Register } from '../screens/Register';
 import { Historical } from '../screens/Historical';
+import { Account } from '../screens/Account';
 
 const { Navigator, Screen } = createNativeStackNavigator();
 
@@ -14,6 +15,7 @@ export function AppRoutes() {
       <Screen name="new" component={Register} />
       <Screen name="details" component={Details} />
       <Screen name="historical" component={Historical} />
+      <Screen name="account" component={Account} />
     </Navigator>
   )
 }

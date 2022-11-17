@@ -4,6 +4,7 @@ import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
 
 import { Loading } from '../components/Loading';
 import { SignIn } from '../screens/SignIn';
+import { Account } from '../screens/Account';
 
 import { AppRoutes } from './app.routes';
 

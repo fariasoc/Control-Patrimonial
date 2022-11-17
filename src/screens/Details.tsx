@@ -166,8 +166,6 @@ export function Details() {
           footer={`Aberto em ${order.when}`}
           description={order.stockController}
           icon={UserSwitch}
-          
-        
         >
 
         {

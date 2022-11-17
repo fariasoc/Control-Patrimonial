@@ -2,28 +2,22 @@ import { useState } from 'react';
 import { Alert } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import { VStack, HStack, Heading, Icon, useTheme, Text, IconButton } from 'native-base';
-import { useNavigation } from '@react-navigation/native';
 import { At, Key, Password, UserCirclePlus } from 'phosphor-react-native';
 
 import Logo from '../assets/3.svg';
 
 import { Input } from '../components/Input';
 import { Button } from '../components/Button';
+import { useNavigation } from '@react-navigation/native';
 
-
-export function SignIn() {
+export function Account() {
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-
   const navigation = useNavigation();
-  
-  const { colors } = useTheme();
 
-  function goToCreateAccount() {
-    navigation.navigate('account');
-  }
+  const { colors } = useTheme();
 
   function handleCreateAccount() {
     setIsLoading(true)
@@ -93,9 +87,9 @@ export function SignIn() {
 
       <Button
         color="black"
-        title="Entrar"
+        title="Cadastrar"
         w="full"
-        onPress={handleSignIn}
+        onPress={handleCreateAccount}
         isLoading={isLoading}
         borderRadius={10}
         bg="pink.700"
@@ -108,17 +102,17 @@ export function SignIn() {
 
         <IconButton
           icon={<Password size={20} color={colors.white}/>}
-          onPress={() => navigation.navigate('account')}
+          onPress={handleCreateAccount}
         />
 
-        <Text bold color="white"> Esqueci a senha </Text>
+        <Text bold color="white" onPress={handleCreateAccount} > Esqueci a senha </Text>
 
         <IconButton
           icon={<UserCirclePlus size={20} color={colors.white} />}
-          onPress={() => navigation.navigate('account')}
+          onPress={() => navigation.goBack()}
         />
 
-        <Text bold color="white"> Criar minha conta </Text>
+        <Text bold color="white" onPress={handleResetPassword}> Criar minha conta </Text>
 
       </HStack>
 
