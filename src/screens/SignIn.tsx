@@ -10,6 +10,8 @@ import Logo from '../assets/3.svg';
 import { Input } from '../components/Input';
 import { Button } from '../components/Button';
 
+import { Account } from '../screens/Account'
+
 
 export function SignIn() {
   const [isLoading, setIsLoading] = useState(false);
@@ -20,24 +22,6 @@ export function SignIn() {
   const navigation = useNavigation();
   
   const { colors } = useTheme();
-
-  function goToCreateAccount() {
-    navigation.navigate('account');
-  }
-
-  function handleCreateAccount() {
-    setIsLoading(true)
-
-    auth()
-    .createUserWithEmailAndPassword(email, password)
-    .then(() => Alert.alert("Conta", "Cadastrado com sucesso!"))
-    .catch((error) => console.error(error))
-    .finally(() => setIsLoading(false))
-  }
-
-  function handleResetPassword() {
-
-  }
 
   function handleSignIn() {
     if (!email || !password) {
@@ -106,19 +90,13 @@ export function SignIn() {
 
       <HStack justifyContent="space-between" mt={3} alignItems="center" w="full" >
 
-        <IconButton
-          icon={<Password size={20} color={colors.white}/>}
-          onPress={() => navigation.navigate('account')}
-        />
 
-        <Text bold color="white"> Esqueci a senha </Text>
 
-        <IconButton
-          icon={<UserCirclePlus size={20} color={colors.white} />}
-          onPress={() => navigation.navigate('account')}
-        />
+        <Account />
 
-        <Text bold color="white"> Criar minha conta </Text>
+
+
+
 
       </HStack>
 

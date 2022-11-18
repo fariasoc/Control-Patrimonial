@@ -1,26 +1,20 @@
 import { useState } from 'react';
 import { Alert } from 'react-native';
+import React from "react";
 import auth from '@react-native-firebase/auth';
-import { VStack, HStack, Heading, Icon, useTheme, Text, IconButton } from 'native-base';
-import { At, Key, Password, UserCirclePlus } from 'phosphor-react-native';
-
-import Logo from '../assets/3.svg';
-
-import { Input } from '../components/Input';
-import { Button } from '../components/Button';
-import { useNavigation } from '@react-navigation/native';
+import { Popover, Button, Input, FormControl, Box, Center, NativeBaseProvider, IconButton } from "native-base";
+import { UserCirclePlus } from "phosphor-react-native";
 
 export function Account() {
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const navigation = useNavigation();
-
-  const { colors } = useTheme();
-
   function handleCreateAccount() {
     setIsLoading(true)
+    if ( !email || !password ) {
+      return Alert.alert('Por favor', 'Preencha todos os campos ;)');
+    }
 
     auth()
     .createUserWithEmailAndPassword(email, password)
@@ -29,93 +23,74 @@ export function Account() {
     .finally(() => setIsLoading(false))
   }
 
-  function handleResetPassword() {
-
-  }
-
-  function handleSignIn() {
-    if (!email || !password) {
-      return Alert.alert('Entrar', 'Informe e-mail e senha.');
+  function handleForgotPassword() {
+    setIsLoading(true)
+    if ( !email ) {
+      return Alert.alert('Por favor', 'Mencione o e-mail');
     }
-
-    setIsLoading(true);
-
     auth()
-      .signInWithEmailAndPassword(email, password)
-      .catch((error) => {
-        console.log(error);
-        setIsLoading(false);
-
-        if (error.code === 'auth/invalid-email') {
-          return Alert.alert('Entrar', 'E-mail inválido.');
-        }
-
-        if (error.code === 'auth/wrong-password') {
-          return Alert.alert('Entrar', 'E-mail ou senha inválida.');
-        }
-
-        if (error.code === 'auth/user-not-found') {
-          return Alert.alert('Entrar', 'E-mail ou senha inválida.');
-        }
-
-        return Alert.alert('Entrar', 'Não foi possível acessar');
-      });
+    .sendPasswordResetEmail(email)
+    .then(() => Alert.alert("Redefinição de senha", "Enviamos um e-mail para você"))
+    .catch(error=> console.log(error))
   }
 
-  return (
-    <VStack flex={1} alignItems="center" bg="gray.600" px={8} pt={24}>
-      <Logo height={100} width={100} />
-
-      <Heading color="gray.100" fontSize="xl" mt={10} mb={6}>
-        Acesse sua conta
-      </Heading>
-
-      <Input
-        mb={4}
-        placeholder="E-mail"
-        InputLeftElement={<Icon as={<At color={colors.white} weight="bold" />} ml={5} />}
-        onChangeText={setEmail}
-      />
-
-      <Input
-        mb={5}
-        placeholder="Senha"
-        InputLeftElement={<Icon as={<Key color={colors.white} weight="bold" />} ml={4} />}
-        secureTextEntry
-        onChangeText={setPassword}
-      />
-
-      <Button
-        color="black"
-        title="Cadastrar"
-        w="full"
-        onPress={handleCreateAccount}
-        isLoading={isLoading}
-        borderRadius={10}
-        bg="pink.700"
-        borderWidth={'1'}
-        borderColor={colors.gray[700]}
-
-      />
-
-      <HStack justifyContent="space-between" mt={3} alignItems="center" w="full" >
-
-        <IconButton
-          icon={<Password size={20} color={colors.white}/>}
-          onPress={handleCreateAccount}
-        />
-
-        <Text bold color="white" onPress={handleCreateAccount} > Esqueci a senha </Text>
-
-        <IconButton
-          icon={<UserCirclePlus size={20} color={colors.white} />}
-          onPress={() => navigation.goBack()}
-        />
-
-        <Text bold color="white" onPress={handleResetPassword}> Criar minha conta </Text>
-
-      </HStack>
-
-    </VStack>
-  )
+  const initialFocusRef = React.useRef(null);
+  return <Box w="100%" alignItems="center">
+      <Popover initialFocusRef={initialFocusRef} trigger={triggerProps => {
+      return  <IconButton 
+                {...triggerProps}
+                icon={<UserCirclePlus size={32} color="white" />}  
+              />    
+    }}>
+        <Popover.Content width="56" >
+          <Popover.Arrow />
+          <Popover.CloseButton />
+          {
+          /* @ts-ignore */
+        }
+          <Popover.Header bg="dark.100" color="white" _text={{
+            color: "white"
+          }}>Criar uma conta</Popover.Header>
+          <Popover.Body bg="dark.100">
+            <FormControl bg="dark.100">
+              <FormControl.Label _text={{
+              fontSize: "xs",
+              fontWeight: "bold",
+              color: "white"              
+            }}>
+                E-mail
+              </FormControl.Label>
+              <Input rounded="sm" fontSize="xs" ref={initialFocusRef} onChangeText={setEmail} color="white"  />
+            </FormControl>
+            <FormControl mt="3">
+              <FormControl.Label _text={{
+              fontSize: "xs",
+              fontWeight: "bold",
+              color: "white"
+            }}>
+                Senha
+              </FormControl.Label>
+              <Input rounded="sm" fontSize="xs" onChangeText={setPassword} color="white"/>
+            </FormControl>
+          </Popover.Body>
+          <Popover.Footer bg="dark.100" justifyContent="center">
+            <Button.Group >
+              <Button onPress={handleForgotPassword} variant="ghost">Refefinir senha</Button>
+              <Button colorScheme="pink" onPress={handleCreateAccount}>Cadastrar</Button>
+            </Button.Group>
+          </Popover.Footer>
+        </Popover.Content>
+      </Popover>
+    </Box>;
 }
+
+    export default () => {
+        return (
+          <NativeBaseProvider>
+            <Center  px="3">
+                <Account />
+            </Center>
+          </NativeBaseProvider>
+        );
+    };
+    
