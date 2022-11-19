@@ -1,22 +1,64 @@
 import { useState, useEffect } from 'react';
-import { Alert } from 'react-native';
-import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import { useNavigation } from '@react-navigation/native';
 import { HStack, IconButton, VStack, useTheme, Text, Heading, FlatList, Center, Fab, Avatar  } from 'native-base';
-import { SignOut, Plus, ChatTeardropText, FileArrowDown, Printer } from 'phosphor-react-native';
+import { Plus, ChatTeardropText, FileArrowDown, Printer } from 'phosphor-react-native';
+
+import * as Print from 'expo-print';
+import { shareAsync } from 'expo-sharing';
 
 import { dateFormat } from '../utils/firestoreDateFormat';
 
-//import Logo from '../assets/3.svg';
-
-import { Filter } from '../components/Filter';
-import { Button } from '../components/Button';
 import { Header } from '../components/Header';
 import { Loading } from '../components/Loading';
 import { Order, OrderProps } from '../components/Order';
+import PrintPDF from '../components/PrintPDF';
+
+import React, { Component } from 'react';
+import {
+  TouchableHighlight,
+  View,
+} from 'react-native';
+
+import RNHTMLtoPDF from 'react-native-html-to-pdf';
+/*
+  const html = `
+    <html>
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+      </head>
+      <body style="text-align: center;">
+        <h1 style="font-size: 50px; font-family: Helvetica Neue; font-weight: normal;">
+          Hello World!
+        </h1>
+        <img
+          src="https://d30j33t1r58ioz.cloudfront.net/static/guides/sdk.png"
+          style="width: 90vw;" />
+      </body>
+    </html>
+  `;
+
+  const print = async () => {
+    // On iOS/android prints the given html. On web prints the HTML from the current page.
+    await Print.printAsync({
+      html,
+      orientation: Print.Orientation.portrait
+      //printerUrl: selectedPrinter?.url, // iOS only
+    });
+  };
+
+  const printToFile = async () => {
+    // On iOS/android prints the given html. On web prints the HTML from the current page.
+    const { uri } = await Print.printToFileAsync({ html });
+    console.log('O arquivo foi salvo em:', uri);
+    await shareAsync(uri, { UTI: '.pdf', mimeType: 'application/pdf'});
+  };
+
+*/
 
 export function Historical() {
+  
+  const [selectedPrinter, setSelectedPrinter] = React.useState();
   const [isLoading, setIsLoading] = useState(true);
   const [statusSelected, setStatusSelected] = useState<'open' | 'closed'>('open');
   const [orders, setOrders] = useState<OrderProps[]>([]);
@@ -24,27 +66,17 @@ export function Historical() {
   const navigation = useNavigation();
   const { colors } = useTheme();
 
+
   function handleNewOrder() {
     navigation.navigate('new');
-  }
-
-  function handleOpenHistoric() {
-    navigation.navigate('historical');
   }
 
   function handleOpenDetails(orderId: string) {
     navigation.navigate('details', { orderId });
   }
 
-  function handleLogout() {
-    auth()
-      .signOut()
-      .catch(error => {
-        console.log(error);
-        return Alert.alert('Sair', 'Não foi possível sair.');
-      });
-  }
 
+  
   useEffect(() => {
     setIsLoading(true);
 
@@ -78,9 +110,7 @@ export function Historical() {
     <VStack flex={1} pb={3} bg="gray.700">
       
           <Header title="Histórico" />
-
-
-
+          
       <VStack flex={1} px={6}>
         <HStack w="full" mt={4} mb={4} justifyContent="space-between" alignItems="center">
           <Heading size="md" color="gray.100" >
@@ -127,34 +157,29 @@ export function Historical() {
             mr={7}
             _pressed={{ bg: "gray.700" }}
             icon={<Plus  size={14} color={colors.white} weight="bold"  />}
-    />
+        />
 
      {/*  <Button title="+" onPress={handleNewOrder} />  */}
-
         
       </VStack>
 
+        <PrintPDF />
+        
       <HStack justifyContent="space-between" ml={9} mr={4} >
 
       <IconButton
           icon={<Printer size={28} color={colors.white} />}
-          
-        />
+          //onPress={print}
+      />
 
       <IconButton
           icon={<FileArrowDown size={28} color={colors.white} />}
-          
-        />
+          //onPress={printToFile} 
+      />
 
-      <IconButton
-          
-          
-        />
-
+      <IconButton />
 
       </HStack>
-
-
       
     </VStack>
 

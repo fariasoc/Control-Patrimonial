@@ -16,6 +16,11 @@
     "ios": {
       "bundleIdentifier": "com.controlx",
       "googleServicesFile": "./GoogleService-Info"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "6ca79d95-5ae3-470d-a967-a6e4a41e2eeb"
+      }
     }
   }
 }
